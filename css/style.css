@@ -11,7 +11,7 @@ h1 {
 .header {
 	background-color: #2d2d30;
 	color: white;
-	height: 7vh;
+	height: 25vh;
 	text-align: center;
 }
 
@@ -23,11 +23,11 @@ footer {
 }
 
 #main { 
-	height: 90vh; 
+	height: 70vh; 
 }
 
 .sidenav {
-	height: 90vh;
+	height: 70vh;
 	text-align: left;
 	background-color: lightgray;
 }
@@ -39,10 +39,25 @@ footer {
 	}
 }
 
-.board {
-	border: 1px solid black;
-}
-
 .glyphicon {
 	font-size: 75px;
+}
+
+.scoreboard {
+	text-align: center;
+}
+
+.player {
+	display: inline-block;
+	padding: 15px;
+}
+
+.player h4 {
+	font-weight: bold;
+}
+
+.scorebox {
+	color: #2CB3C9;
+	font-weight: bold;
+	font-size: 20px;
 }
