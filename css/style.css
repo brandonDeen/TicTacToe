@@ -29,7 +29,7 @@ footer {
 .sidenav {
 	height: 70vh;
 	text-align: left;
-	background-color: lightgray;
+	/*background-color: lightgray;*/
 }
 
  /*hide sidenav if width < 600px */
@@ -60,4 +60,17 @@ footer {
 	color: #2CB3C9;
 	font-weight: bold;
 	font-size: 20px;
+}
+
+.a_row {
+	border-bottom: solid 5px black;
+}
+
+.b_row {
+	border-bottom: solid 5px black;
+}
+
+.col {
+	border-left: solid 5px black;
+	border-right: solid 5px black;
 }
