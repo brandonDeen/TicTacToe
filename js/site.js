@@ -19,7 +19,7 @@ $(document).ready(function(){
 function load_score(){
 	var stored_scores = get_score();
 	if( stored_scores == null ){
-		set_score(null);
+		stored_scores = set_score(null);
 	} 
 	displayScoreboard(stored_scores);
 	return stored_scores;
@@ -32,6 +32,7 @@ function set_score(the_score){
 	} 
 
 	localStorage.setItem('tictactoe_score', JSON.stringify(the_score))
+	return the_score;
 }
 
 function get_score(){
@@ -94,14 +95,16 @@ function get_computer_turn(){
 	var moveFound = false;
 
 	//check if ai has winning move available and win
-	for(var i=0; i<3 && !moveFound; i++){
-		for(var k=0; k<3 && !moveFound; k++){
+	for(var i=0; i<3; i++){
+		for(var k=0; k<3; k++){
 			if( canWinOrBlock(i, k, -2) ){
 				moveFound = true;
 				x = i;
 				y = k;
+				break;
 			}
 		}
+		if(moveFound){ break; }
 	}
 	//check if ai can block user from winning
 	for(var i=0; i<3 && !moveFound; i++){
@@ -110,8 +113,10 @@ function get_computer_turn(){
 				moveFound = true;
 				x = i;
 				y = k;
+				break;
 			}
 		}
+		if(moveFound){ break; }
 	}
 
 
@@ -218,9 +223,12 @@ function reset_game(){
 function canWinOrBlock(x, y, val){
 	var result = false;
 
-	if((grid[x][y] == 0) && (( sumRow(grid[x]) == val ) || ( sumCol(y) == val) || (sumForwardDiagonal() == val) || ( sumBackwardDiagonal() == val ))){
-		result = true;
+	if(grid[x][y] == 0){
+		if( onForwardDiagonal(x, y) && sumForwardDiagonal() == val ){	result = true; }
+		else if( ( sumRow(grid[x]) == val ) || ( sumCol(y) == val) ){ result = true; }
+		else if( onBackwardDiagonal(x,y) && sumBackwardDiagonal() == val ){ result = true; }
 	}
+	
 
 	return result;
 }
@@ -246,11 +254,20 @@ function sumBackwardDiagonal(){
 	return grid[0][2] + grid[1][1] + grid[2][0];
 }
 
-// function onDiagonal(x, y){
-// 	var result = false;
-// 	if( (x == 1 && y == 1) || (x == 0 && y == 0) || (x == 0 && y == 2) || (x == 2 && y == 0) || (x == 2 && y == 2)){
-// 		result = true;
-// 	}
+function onBackwardDiagonal(x, y){
+	var result = false;
+	if( (x == 1 && y == 1) || (x == 0 && y == 2) || (x == 2 && y == 0) ){
+		result = true;
+	}
 
-// 	return true;
-// }
+	return result;
+}
+
+function onForwardDiagonal(x, y){
+	var result = false;
+	if( (x == 1 && y == 1) || (x == 0 && y == 0) || (x == 2 && y == 2)){
+		result = true;
+	}
+
+	return result;
+}
